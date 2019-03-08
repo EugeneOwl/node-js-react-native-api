@@ -1,0 +1,1 @@
+export type sqlParameter = number | string;
