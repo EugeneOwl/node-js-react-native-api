@@ -4,18 +4,14 @@
   "description": "Eugene's NodeJS based API for mobile app build on React Native.",
   "main": "application.ts",
   "scripts": {
-    "start": "ts-node index.ts",
-    "tsc": "tsc"
+    "start": "ts-node index.ts"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/EugeneOwl/node-js-react-native-api"
   },
-  "author": "Eugene Ivanov",
-  "license": "ISC",
-  "bugs": {
-    "url": ""
-  },
+  "author": "e.ivanov",
+  "license": "UNLICENSED",
   "homepage": "https://eugene-api.herokuapp.com",
   "dependencies": {
     "@types/express": "^4.16.1",
