@@ -14,7 +14,7 @@ export class DataBasePool {
     ssl: true
   });
 
-  private emptySqlResult: PgSqlResult = {command: '', rowCount: 0, rows: []};
+  private emptySqlResult: PgSqlResult = { command: '', rowCount: 0, rows: [] };
 
   async query(sql: string, params: sqlParameter[] = []): Promise<PgSqlResult> {
     try {
