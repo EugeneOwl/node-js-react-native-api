@@ -7,7 +7,7 @@ export class UserService {
     return await userRepository.getAll();
   }
 
-  async add(user: UserCreateRequest): UserCrea {
+  async add(user: UserCreateRequest) {
     // TODO think of user creation and editing flow and implement needed logic
 
     // TODO add transformers as separate pattern and folder to convert entity DTOs and vise versa

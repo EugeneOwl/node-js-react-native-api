@@ -3,6 +3,8 @@ import express from 'express';
 import { baseRouter } from './src/routes/base-router';
 import { Express } from 'express-serve-static-core';
 
+const morgan = require('morgan');
+
 class Application {
 
   private readonly app: Express;
@@ -18,6 +20,7 @@ class Application {
 
   private setUp(): void {
     this.app.use(bodyParser.json());
+    this.app.use(morgan('combined'));
     baseRouter.setUpRoutes(this.app);
   }
 }
