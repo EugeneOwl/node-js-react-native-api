@@ -20,7 +20,7 @@ class Application {
 
   private setUp(): void {
     this.app.use(bodyParser.json());
-    this.app.use(morgan('combined'));
+    this.app.use(morgan('dev'));
     baseRouter.setUpRoutes(this.app);
   }
 }
