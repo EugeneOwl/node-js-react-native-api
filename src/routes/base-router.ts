@@ -1,5 +1,6 @@
 import { Express, Router } from 'express';
 import { userRouter } from './user-router';
+import { httpErrorHandler } from "../middlewares/base-http-error-handler";
 
 export class BaseRouter {
 
@@ -10,6 +11,7 @@ export class BaseRouter {
     userRouter.setUpRoutes(BaseRouter.BASE_ROUTE, router);
 
     app.use(router);
+    app.use(httpErrorHandler.handleError);
   }
 }
 

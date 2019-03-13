@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { userController } from '../controllers/user-controller';
+import { Request, Response } from "express-serve-static-core";
 
 class UserRouter {
 

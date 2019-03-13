@@ -1,7 +1,7 @@
-import { User, UserCreateRequest } from "../models/user";
+import { User, UserCreateRequest } from "../models/user-model";
 import { userRepository } from "../repositories/user-repository";
 
-export class UserService {
+export class UserService { // TODO remove 'export' word from every class where instance initialized
 
   async getAll(): Promise<User[]> {
     return await userRepository.getAll();

@@ -1,4 +1,4 @@
-import { User } from "../models/user";
+import { User } from "../models/user-model";
 import { databasePool } from "../db/data-base-pool";
 
 export class UserRepository {

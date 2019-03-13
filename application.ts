@@ -3,6 +3,7 @@ import express from 'express';
 import { baseRouter } from './src/routes/base-router';
 import { Express } from 'express-serve-static-core';
 
+require('express-async-errors');
 const morgan = require('morgan');
 
 class Application {
