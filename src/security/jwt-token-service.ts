@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 class JwtTokenService {
 
-  private readonly JWT_SECRET = process.env['SPP_LAB_WORK_3_JWT_SECRET'];
+  private readonly JWT_SECRET = process.env['JWT_SECRET'];
   private readonly JWT_ALGORITHM = 'HS256';
   private readonly JWT_EXPIRATION_TIME = 60 * 60;
 
