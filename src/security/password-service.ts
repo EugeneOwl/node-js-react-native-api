@@ -1,6 +1,6 @@
 const { hash, compare } = require('bcrypt');
 
-export class PasswordService {
+class PasswordService {
 
   private static readonly SALT_ROUNDS = 10;
 
@@ -22,3 +22,7 @@ export class PasswordService {
     }
   }
 }
+
+const passwordSerrvice = new PasswordService();
+
+export { passwordSerrvice }

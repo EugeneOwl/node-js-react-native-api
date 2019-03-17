@@ -2,7 +2,7 @@ import { Request, Response } from "express-serve-static-core";
 import { BaseHttpError } from "../errors/base-http-error";
 import { BaseHttpErrorWrapper } from "../errors/base-http-error-wrapper";
 
-export class BaseHttpErrorHandler {
+class BaseHttpErrorHandler {
 
   handleError(error: Error | BaseHttpError, request: Request, response: Response, next: any): void {
     const httpErrorObject = error instanceof BaseHttpError ?

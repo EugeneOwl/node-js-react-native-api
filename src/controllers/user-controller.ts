@@ -1,16 +1,16 @@
 import { Request, Response } from 'express-serve-static-core';
 import { userService } from "../services/user-service";
 
-export class UserController {
+class UserController {
 
-  async getAll(request: Request, response: Response): Promise<Response> {
+  async getAll(request: Request, response: Response): Promise<void> {
     const users = await userService.getAll();
-    return response.send(users);
+    response.send(users);
   }
 
-  async add(request: Request, response: Response): Promise<Response> {
+  async add(request: Request, response: Response): Promise<void> {
     const user = userService.add(request.body.user);
-    return response.send(user);
+    response.send(user);
   }
 }
 

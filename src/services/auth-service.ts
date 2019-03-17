@@ -1,12 +1,25 @@
-import { Request, Response } from "express-serve-static-core";
 import { LoginRequest } from "../models/auth-model";
+import { userRepository } from "../repositories/user-repository";
+import { passwordSerrvice } from "../security/password-service";
+import { BaseHttpError } from "../errors/base-http-error";
 
 class AuthService {
 
-  async validateCredentials(loginRequest: LoginRequest): void {
-    // TODO find user by username and if not found throw 401 'no user with username found'
+  async validateCredentials(loginRequest: LoginRequest): Promise<void> {
 
-    // TODO validate password of user and if wrong throw 401 'password wrong'
+    if (!loginRequest.username || !loginRequest.password) {
+      throw new BaseHttpError('Not enough credentials.', 401);
+    }
+
+    const passwordHash = await userRepository.findPasswordByUsername(loginRequest.username);
+    if (!passwordHash) {
+      throw new BaseHttpError('Wrong username.', 401);
+    }
+
+    const passwordCorrect = await passwordSerrvice.comparePassword(loginRequest.password, passwordHash);
+    if (!passwordCorrect) {
+      throw new BaseHttpError('Wrong password.', 401);
+    }
   }
 }
 
