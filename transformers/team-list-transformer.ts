@@ -1,6 +1,6 @@
-import { TeamListDatabaseRow, TeamListItem, TeamListItemMember } from "../../../models/team/team-list-model";
+import { TeamListDatabaseRow, TeamListItem, TeamListItemMember } from "../src/models/team/team-list-model";
 import moment from 'moment'
-import { durationProcessorUtil } from "../../../services/utils/duration-processor-util";
+import { durationProcessorUtil } from "../src/services/utils/duration-processor-util";
 
 class TeamListTransformer {
 

@@ -1,7 +1,8 @@
 import { teamRepository } from "../repositories/team-repository";
 import { teamValidator } from "../../validators/team-validator";
 import { TeamCreateRequest } from "../models/team/team-model";
-import { TeamListItem } from "../models/team/team-list-model";
+import { TeamListDatabaseRow, TeamListItem } from "../models/team/team-list-model";
+import { teamListTransformer } from "../../transformers/team-list-transformer";
 
 class TeamService {
 
@@ -12,11 +13,14 @@ class TeamService {
       createRequest.members.push(createRequest.leader);
     }
 
-    return await teamRepository.add(createRequest);
+    const databaseRows = await teamRepository.add(createRequest);
+
+    return teamListTransformer.listDatabaseRowToList(databaseRows);
   }
 
   async getAll(): Promise<TeamListItem[]> {
-    return await teamRepository.getAll();
+    const databaseRows = await teamRepository.getAll();
+    return teamListTransformer.listDatabaseRowToList(databaseRows);
   }
 
   private leaderIncludedToTeamMembers(team: TeamCreateRequest): boolean {

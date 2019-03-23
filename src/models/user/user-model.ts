@@ -1,11 +1,9 @@
-export interface User {
+export interface UserListItem {
     id: number;
     username: string;
-    role_id: number;
-    password: string;
     avatar: string;
-    deleted: boolean;
-    project_id: number;
+    tasksToPerform: number;
+    tasksInProgress: number;
 }
 
 export interface UserCreateRequest {

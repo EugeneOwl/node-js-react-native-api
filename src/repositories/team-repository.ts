@@ -1,8 +1,7 @@
 import { databasePool } from "../db/data-base-pool";
 import { repositoryUtil } from "./utils/repository-util";
 import { TeamCreateRequest } from "../models/team/team-model";
-import { TeamListDatabaseRow, TeamListItem } from "../models/team/team-list-model";
-import { teamListTransformer } from "./utils/transformers/team-list-transformer";
+import { TeamListDatabaseRow } from "../models/team/team-list-model";
 import { teamDatabaseValidator } from "./utils/database-validators/team-database-validator";
 
 class TeamRepository {
@@ -10,7 +9,7 @@ class TeamRepository {
   static tableName = 'teams';
   static seqName = 'teams_id_seq';
 
-  async add(createRequest: TeamCreateRequest): Promise<TeamListItem[]> {
+  async add(createRequest: TeamCreateRequest): Promise<TeamListDatabaseRow[]> {
     await teamDatabaseValidator.validateUniqueName(createRequest.name);
 
     const vacantId = await this.vacantId;
@@ -22,16 +21,12 @@ class TeamRepository {
 
     const { rows } = await databasePool.query(this.TEAM_LIST_ITEM_QUERY, [vacantId]);
 
-    const teamListDatabaseRows = rows as TeamListDatabaseRow[];
-
-    return teamListTransformer.listDatabaseRowToList(teamListDatabaseRows);
+    return rows as TeamListDatabaseRow[];
   }
 
-  async getAll(): Promise<TeamListItem[]> {
+  async getAll(): Promise<TeamListDatabaseRow[]> { // TODO filter by project id
     const { rows } = await databasePool.query(this.TEAM_LIST_QUERY);
-    const teamListDatabaseRows = rows as TeamListDatabaseRow[];
-
-    return teamListTransformer.listDatabaseRowToList(teamListDatabaseRows);
+    return rows as TeamListDatabaseRow[];
   }
 
   private get vacantId(): Promise<number> {
