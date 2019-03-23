@@ -17,7 +17,7 @@ class TeamRepository {
     const { name, projectId, leader, members } = createRequest;
     await this.insertTeam(id, name, projectId, leader);
 
-    members.forEach(async (id: number) => await this.insertMember(id, id));
+    members.forEach(async (userId: number) => await this.insertMember(id, userId));
 
     const { rows } = await databasePool.query(this.TEAM_LIST_ITEM_QUERY, [ id ]);
 

@@ -7,7 +7,7 @@ class TeamDatabaseValidator {
     const { rows } = await databasePool.query(this.COUNT_BY_NAME, [name, projectId]);
 
     // @ts-ignore
-    if (rows[0].count !== 0) {
+    if (parseInt(rows[0].count, 10) !== 0) {
       throw new BaseHttpError('Team with such name already exists on needed project.', 400);
     }
   }
