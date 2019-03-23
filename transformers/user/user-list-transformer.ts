@@ -1,7 +1,7 @@
-import { UserListDatabaseRow } from "../src/models/user/user-list-model";
-import { UserListItem } from "../src/models/user/user-model";
-import { TaskStatus } from "../src/models/task/task-status";
-import { BaseHttpError } from "../src/errors/base-http-error";
+import { TaskStatus } from "../../src/models/task/task-status";
+import { BaseHttpError } from "../../src/errors/base-http-error";
+import { UserListDatabaseRow } from "../../src/models/user/user-database-row";
+import { UserListItem } from "../../src/models/user/user-list-model";
 
 class UserListTransformer {
 

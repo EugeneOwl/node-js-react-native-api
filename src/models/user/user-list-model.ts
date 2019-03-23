@@ -1,7 +1,7 @@
-export interface UserListDatabaseRow {
+export interface UserListItem {
   id: number;
-  avatar: string;
   username: string;
-  task_status: string;
-  tasks_count: string;
+  avatar: string;
+  tasksToPerform: number;
+  tasksInProgress: number;
 }

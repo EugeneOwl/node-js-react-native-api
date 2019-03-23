@@ -1,21 +1,30 @@
-export interface UserListItem {
-    id: number;
-    username: string;
-    avatar: string;
-    tasksToPerform: number;
-    tasksInProgress: number;
-}
+import { ProjectLimitedModel } from "../model";
+import { Lookup } from "../common/lookup-model";
 
-export interface UserCreateRequest {
+export interface UserCreateRequest extends ProjectLimitedModel {
     username: string;
-    role_id: number;
+    roleId: number;
+    teamId: number;
     password: string;
     avatar: string;
-    project_id: number;
 }
 
-export interface UserCandidate { // TODO add ProjectLimitedModel implementation
+export interface UserCandidate {
     id: number;
     username: string;
     avatar: string;
+}
+
+export interface UserDetails {
+  id: number;
+  username: string;
+  avatar: string;
+  teams: string[];
+  role: string;
+  timeLogged: string;
+}
+
+export interface UserPreCreateData {
+  teams: Lookup[];
+  roles: Lookup[];
 }

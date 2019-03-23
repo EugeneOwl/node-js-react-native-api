@@ -1,51 +1,53 @@
 import { databasePool } from "../db/data-base-pool";
 import { repositoryUtil } from "./utils/repository-util";
 import { TeamCreateRequest } from "../models/team/team-model";
-import { TeamListDatabaseRow } from "../models/team/team-list-model";
 import { teamDatabaseValidator } from "./utils/database-validators/team-database-validator";
+import { TeamListDatabaseRow } from "../models/team/team-database-row";
 
 class TeamRepository {
 
-  static tableName = 'teams';
-  static seqName = 'teams_id_seq';
+  static readonly TABLE_NAME = 'teams';
+  static readonly SEQ_NAME = 'teams_id_seq';
 
   async add(createRequest: TeamCreateRequest): Promise<TeamListDatabaseRow[]> {
-    await teamDatabaseValidator.validateUniqueName(createRequest.name);
+    await teamDatabaseValidator.validateUniqueName(createRequest.name, createRequest.projectId);
 
-    const vacantId = await this.vacantId;
+    const id = await this.vacantId;
 
     const { name, projectId, leader, members } = createRequest;
-    await this.insertTeam(vacantId, name, projectId, leader);
+    await this.insertTeam(id, name, projectId, leader);
 
-    members.forEach(async (id: number) => await this.insertMember(vacantId, id));
+    members.forEach(async (id: number) => await this.insertMember(id, id));
 
-    const { rows } = await databasePool.query(this.TEAM_LIST_ITEM_QUERY, [vacantId]);
+    const { rows } = await databasePool.query(this.TEAM_LIST_ITEM_QUERY, [ id ]);
 
     return rows as TeamListDatabaseRow[];
   }
 
-  async getAll(): Promise<TeamListDatabaseRow[]> { // TODO filter by project id
-    const { rows } = await databasePool.query(this.TEAM_LIST_QUERY);
+  async getAll(projectId: number): Promise<TeamListDatabaseRow[]> {
+    const { rows } = await databasePool.query(this.TEAM_LIST_QUERY, [ projectId ]);
     return rows as TeamListDatabaseRow[];
   }
 
   private get vacantId(): Promise<number> {
-    return repositoryUtil.getVacantId(TeamRepository.seqName, TeamRepository.tableName);
+    return repositoryUtil.getVacantId(TeamRepository.SEQ_NAME, TeamRepository.TABLE_NAME);
   }
 
   private insertTeam(id: number, name: string, projectId: number, leader: number): Promise<any> {
-    return databasePool.query(
-      'INSERT INTO teams (id, name, project_id, leader_id) VALUES ($1, $2, $3, $4)',
-      [id, name, projectId, leader]
-    );
+    return databasePool.query(this.INSERT_TEAM_QUERY, [ id, name, projectId, leader ]);
   }
 
-  private insertMember(teamId: number, memberId: number): Promise<any> {
-    return databasePool.query(
-      'INSERT INTO team_user_relation (user_id, team_id) VALUES ($1, $2)',
-      [memberId, teamId]
-    );
+  insertMember(teamId: number, memberId: number): Promise<any> {
+    return databasePool.query(this.INSERT_MEMBER_QUERY, [ memberId, teamId ]);
   }
+
+  private readonly INSERT_TEAM_QUERY = `
+INSERT INTO teams (id, name, project_id, leader_id) VALUES ($1, $2, $3, $4)
+  `;
+
+  private readonly INSERT_MEMBER_QUERY = `
+INSERT INTO team_user_relation (user_id, team_id) VALUES ($1, $2)
+  `;
 
   private readonly TEAM_LIST_QUERY = `
 SELECT t.id,
@@ -65,6 +67,7 @@ SELECT t.id,
       ON r.id = u.role_id
     JOIN projects AS p
       ON p.id = t.project_id
+    WHERE t.project_id = $1
       ORDER BY t.name, u.username;
   `;
 

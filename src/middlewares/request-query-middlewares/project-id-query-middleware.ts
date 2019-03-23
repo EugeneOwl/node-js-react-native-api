@@ -2,7 +2,7 @@ import { Request, Response } from "express-serve-static-core";
 import { RequestQueryKeys } from "./utils/request-query-keys";
 import { validatorUtil } from "../../../validators/utils/validator-util";
 
-class ProjectIdMiddleware {
+class ProjectIdQueryMiddleware {
 
   parseProjectId(request: Request, response: Response, next: any): void {
     const projectId = parseInt(request.query[RequestQueryKeys.PROJECT_ID], 10);
@@ -13,6 +13,6 @@ class ProjectIdMiddleware {
   }
 }
 
-const projectIdMiddleware = new ProjectIdMiddleware();
+const projectIdMiddleware = new ProjectIdQueryMiddleware();
 
 export { projectIdMiddleware }

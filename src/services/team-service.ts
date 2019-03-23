@@ -1,8 +1,8 @@
 import { teamRepository } from "../repositories/team-repository";
 import { teamValidator } from "../../validators/team-validator";
 import { TeamCreateRequest } from "../models/team/team-model";
-import { TeamListDatabaseRow, TeamListItem } from "../models/team/team-list-model";
-import { teamListTransformer } from "../../transformers/team-list-transformer";
+import { teamListTransformer } from "../../transformers/team/team-list-transformer";
+import { TeamListItem } from "../models/team/team-list-model";
 
 class TeamService {
 
@@ -18,8 +18,8 @@ class TeamService {
     return teamListTransformer.listDatabaseRowToList(databaseRows);
   }
 
-  async getAll(): Promise<TeamListItem[]> {
-    const databaseRows = await teamRepository.getAll();
+  async getAll(projectId: number): Promise<TeamListItem[]> {
+    const databaseRows = await teamRepository.getAll(projectId);
     return teamListTransformer.listDatabaseRowToList(databaseRows);
   }
 

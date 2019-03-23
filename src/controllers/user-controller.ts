@@ -10,8 +10,18 @@ class UserController {
   }
 
   async add(request: Request, response: Response): Promise<void> {
-    const user = userService.add(request.body);
+    const user = await userService.add(request.body);
     response.send(user);
+  }
+
+  async getDetails(request: Request, response: Response): Promise<void> {
+    const user = await userService.getDetails(request.params.id);
+    response.send(user);
+  }
+
+  async getPreCreateData(request: Request, response: Response): Promise<void> {
+    const preCreateData = await userService.getPreCreateData(request.query[RequestQueryKeys.PROJECT_ID]);
+    response.send(preCreateData);
   }
 }
 
