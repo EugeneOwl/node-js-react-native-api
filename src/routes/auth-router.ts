@@ -1,9 +1,8 @@
 import { Router } from 'express';
-import { userController } from '../controllers/user-controller';
-import { Request, Response } from "express-serve-static-core";
 import { authController } from "../controllers/auth-controller";
+import { AppRouter } from "./app-router";
 
-class AuthRouter {
+class AuthRouter implements AppRouter {
 
   static AUTH_URL = '/auth';
   static LOGIN_URL = AuthRouter.AUTH_URL + '/login';

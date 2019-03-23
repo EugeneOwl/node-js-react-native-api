@@ -9,7 +9,7 @@ class UserController {
   }
 
   async add(request: Request, response: Response): Promise<void> {
-    const user = userService.add(request.body.user);
+    const user = userService.add(request.body);
     response.send(user);
   }
 }

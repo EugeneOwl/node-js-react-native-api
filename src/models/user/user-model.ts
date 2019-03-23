@@ -16,11 +16,8 @@ export interface UserCreateRequest {
     project_id: number;
 }
 
-export interface UserListItem { // TODO use
+export interface UserCandidate { // TODO add ProjectLimitedModel implementation
     id: number;
     username: string;
-    role: string;
     avatar: string;
-    deleted: boolean;
-    project: string;
 }

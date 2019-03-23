@@ -1,8 +1,8 @@
-import { Router } from 'express';
 import { userController } from '../controllers/user-controller';
-import { Request, Response } from "express-serve-static-core";
+import { AppRouter } from "./app-router";
+import { Router } from "express";
 
-class UserRouter {
+class UserRouter implements AppRouter {
 
   static USERS_URL = '/users';
 

@@ -1,7 +1,7 @@
 import { Request, Response } from "express-serve-static-core";
 import { authService } from "../services/auth-service";
 import { jwtTokenService } from "../security/jwt-token-service";
-import { LoginResponse } from "../models/auth-model";
+import { LoginResponse } from "../models/auth/login-model";
 
 class AuthController {
 

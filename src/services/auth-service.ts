@@ -1,7 +1,7 @@
-import { LoginRequest } from "../models/auth-model";
 import { userRepository } from "../repositories/user-repository";
 import { passwordSerrvice } from "../security/password-service";
 import { BaseHttpError } from "../errors/base-http-error";
+import { LoginRequest } from "../models/auth/login-model";
 
 class AuthService {
 
