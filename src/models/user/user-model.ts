@@ -1,5 +1,6 @@
-import { ProjectLimitedModel } from "../model";
+import { ProjectLimitedModel } from "../common/project-limited-model";
 import { Lookup } from "../common/lookup-model";
+import { IdentifiableModel } from "../common/identifiable-model";
 
 export interface UserCreateRequest extends ProjectLimitedModel {
     username: string;
@@ -9,14 +10,12 @@ export interface UserCreateRequest extends ProjectLimitedModel {
     avatar: string;
 }
 
-export interface UserCandidate {
-    id: number;
+export interface UserCandidate extends IdentifiableModel {
     username: string;
     avatar: string;
 }
 
-export interface UserDetails {
-  id: number;
+export interface UserDetails extends IdentifiableModel {
   username: string;
   avatar: string;
   teams: string[];

@@ -1,5 +1,6 @@
-export interface UserListItem {
-  id: number;
+import { IdentifiableModel } from "../common/identifiable-model";
+
+export interface UserListItem extends IdentifiableModel {
   username: string;
   avatar: string;
   tasksToPerform: number;

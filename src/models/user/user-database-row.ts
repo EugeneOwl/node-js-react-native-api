@@ -1,13 +1,13 @@
-export interface UserListDatabaseRow {
-  id: number;
+import { IdentifiableModel } from "../common/identifiable-model";
+
+export interface UserListDatabaseRow extends IdentifiableModel {
   avatar: string;
   username: string;
   task_status: string;
   tasks_count: string;
 }
 
-export interface UserDetailsDatabaseRow {
-  id: number;
+export interface UserDetailsDatabaseRow extends IdentifiableModel {
   username: string;
   avatar: string;
   role_name: string;
