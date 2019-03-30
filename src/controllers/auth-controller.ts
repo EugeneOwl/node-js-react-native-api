@@ -9,7 +9,15 @@ class AuthController {
     await authService.validateCredentials(request.body);
 
     const token = jwtTokenService.createToken();
-    const loginResponse: LoginResponse = { token: token };
+    const sessionData = await authService.getSessionData(request.body.username);
+
+    const loginResponse: LoginResponse = {
+      token: token,
+      user: sessionData.user,
+      project: sessionData.project,
+      role: sessionData.role
+    };
+    console.log(loginResponse);
 
     response.send(loginResponse);
   }

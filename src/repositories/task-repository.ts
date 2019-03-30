@@ -98,11 +98,11 @@ SELECT
       ON assigner.id = t.assigned_by
     LEFT JOIN users AS executor
       ON executor.id = t.assigned_to
-  WHERE t.id = $1
+  WHERE t.id = $1;
   `;
 
   private readonly CHILDREN_QUERY = `
-SELECT id, name FROM tasks WHERE parent_id = $1
+SELECT id, name FROM tasks WHERE parent_id = $1;
   `;
 
   private readonly AVAILABLE_EXECUTORS_QUERY = `

@@ -1,7 +1,7 @@
 import { userRepository } from "../repositories/user-repository";
 import { passwordSerrvice } from "../security/password-service";
 import { BaseHttpError } from "../errors/base-http-error";
-import { LoginRequest } from "../models/auth/login-model";
+import { LoginRequest, SessionData } from "../models/auth/login-model";
 
 class AuthService {
 
@@ -20,6 +20,10 @@ class AuthService {
     if (!passwordCorrect) {
       throw new BaseHttpError('Wrong password.', 401);
     }
+  }
+
+  async getSessionData(username: string): Promise<SessionData> {
+    return await userRepository.getSessionData(username);
   }
 }
 

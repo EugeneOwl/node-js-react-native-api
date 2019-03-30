@@ -1,11 +1,12 @@
 import { databasePool } from "../db/data-base-pool";
-import { UserCandidate, UserCreateRequest, UserDetails, UserPreCreateData } from "../models/user/user-model";
-import { UserDetailsDatabaseRow, UserListDatabaseRow } from "../models/user/user-database-row";
-import { userDatabaseValidator } from "./utils/database-validators/user-list-database-validator";
-import { repositoryUtil } from "./utils/repository-util";
 import { passwordSerrvice } from "../security/password-service";
 import { teamRepository } from "./team-repository";
+import { SessionData } from "../models/auth/login-model";
+import { UserDetailsDatabaseRow, UserListDatabaseRow } from "../models/user/user-database-row";
+import { userDatabaseValidator } from "./utils/database-validators/user-list-database-validator";
 import { Lookup } from "../models/common/lookup-model";
+import { UserCandidate, UserCreateRequest, UserPreCreateData } from "../models/user/user-model";
+import { repositoryUtil } from "./utils/repository-util";
 
 class UserRepository {
 
@@ -21,6 +22,12 @@ class UserRepository {
     const { rows } = await databasePool.query(this.PASSWORD_BY_USERNAME_QUERY, [ username ]);
     // @ts-ignore
     return rows.length ? rows[0].password as string : '';
+  }
+
+  async getSessionData(username: string): Promise<SessionData> {
+    const { rows } = await databasePool.query(this.SESSION_DATA_QUERY, [ username ]);
+    console.log(rows);
+    return rows[0] as unknown as SessionData;
   }
 
   async getAllCandidates(projectId: number): Promise<UserCandidate[]> {
@@ -106,11 +113,15 @@ SELECT
    avatar
   FROM users
     WHERE project_id = $1
-      ORDER BY username
+      ORDER BY username;
   `;
 
   private readonly PASSWORD_BY_USERNAME_QUERY = `
-SELECT password FROM users WHERE username = $1
+SELECT password FROM users WHERE username = $1;
+  `;
+
+  private readonly SESSION_DATA_QUERY = `
+SELECT id AS user, role_id AS role, project_id AS project FROM users WHERE username = $1;
   `;
 
   private readonly INSERT_USER_QUERY = `

@@ -3,6 +3,12 @@ export interface LoginRequest {
   password: string;
 }
 
-export interface LoginResponse {
+export interface LoginResponse extends SessionData{
   token: string;
+}
+
+export interface SessionData {
+  user: number;
+  project: number;
+  role: number;
 }
