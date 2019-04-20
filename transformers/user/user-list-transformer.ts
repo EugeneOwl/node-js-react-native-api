@@ -40,8 +40,6 @@ class UserListTransformer {
       userList[index].tasksToPerform = parseInt(row.tasks_count, 10);
     } else if (row.task_status === TaskStatus.IN_PROGRESS) {
       userList[index].tasksInProgress = parseInt(row.tasks_count, 10);
-    } else {
-      throw new BaseHttpError('Logic error occurred processing User List request.', 500);
     }
   }
 }
