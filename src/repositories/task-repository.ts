@@ -40,6 +40,8 @@ class TaskRepository {
     const { projectId, name, description, deadline, parent, createdBy, assignedTo } = createRequest;
     const assignedBy = assignedTo ? createdBy : null;
 
+    const timelineId = await this.vacantTimelineId;
+    await databasePool.query(this.ADD_TIMELINE_QUERY, [timelineId, createdBy, id, 1]);
 
     await databasePool.query(
       this.INSERT_TASK_QUERY,
