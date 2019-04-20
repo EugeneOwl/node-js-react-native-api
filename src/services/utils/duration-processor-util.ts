@@ -7,7 +7,7 @@ class DurationProcessorUtil {
    * Converts date string from database format to UI format.
    *
    * @param duration - string formatted like '25:59:58' (e.g. 25 hours, 59 minutes and 58 seconds)
-   * @return string formatted like '1d 1h 59m'
+   * @return string formatted like '25h 59m'
    */
   stringToUiFormat(duration: string): string {
     const momentDuration = moment.duration(duration);
@@ -15,7 +15,7 @@ class DurationProcessorUtil {
   }
 
   durationToUiFormat(duration: Duration): string {
-    return duration.days() + 'd ' + duration.hours() + 'h ' + duration.minutes() + 'm';
+    return (duration.hours() + duration.days() * 24) + 'h ' + duration.minutes() + 'm';
   }
 }
 
