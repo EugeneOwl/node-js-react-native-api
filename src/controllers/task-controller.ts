@@ -36,7 +36,7 @@ class TaskController {
 
   async addTimelog(request: Request, response: Response): Promise<void> {
     await taskService.addTimelog(request.body);
-    response.send();
+    response.send({ status: 200 });
   }
 
   async getTimeline(request: Request, response: Response): Promise<void> {
