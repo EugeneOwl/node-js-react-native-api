@@ -16,7 +16,7 @@ class TaskController {
 
   async add(request: Request, response: Response): Promise<void> {
     await taskService.add(request.body);
-    response.send();
+    response.send({ status: 200 });
   }
 
   async getDetails(request: Request, response: Response): Promise<void> {
@@ -50,7 +50,7 @@ class TaskController {
       request.query[RequestQueryKeys.TASK_STATUS_ID],
       request.query[RequestQueryKeys.USER_ID]
     );
-    response.send();
+    response.send({ status: 200 });
   }
 
 }
