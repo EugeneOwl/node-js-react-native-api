@@ -1,7 +1,13 @@
 import { taskRepository } from "../repositories/task-repository";
 import { taskListTransformer } from "../../transformers/task/task-list-transformer";
 import { TaskListItem } from "../models/task/task-list-model";
-import { TaskCreateRequest, TaskDetails, TaskPreCreateData } from "../models/task/task-model";
+import {
+  TaskCreateRequest,
+  TaskDetails,
+  TaskPreCreateData, TaskTimeline,
+  TaskTimelog,
+  TaskTimelogRequest
+} from "../models/task/task-model";
 import { taskValidator } from "../../validators/task-validator";
 import { BaseHttpError } from "../errors/base-http-error";
 import { taskDetailsTransformer } from "../../transformers/task/task-details-transformer";
@@ -36,6 +42,22 @@ class TaskService {
 
   async getPreCreateData(projectId: number): Promise<TaskPreCreateData> {
     return await taskRepository.getPreCreateData(projectId);
+  }
+
+  async getTimelog(id: number): Promise<TaskTimelog> {
+    return await taskRepository.getTimelog(id);
+  }
+
+  async addTimelog(log: TaskTimelogRequest): Promise<void> {
+    return await taskRepository.addTimelog(log);
+  }
+
+  async getTimeline(pattern: string): Promise<TaskTimeline[]> {
+    return await taskRepository.getTimeline(pattern);
+  }
+
+  async setStatus(id: number, statusId: number, userId: number): Promise<void> {
+    return await taskRepository.setStatus(id, statusId, userId);
   }
 }
 

@@ -8,7 +8,7 @@ class TaskListQueryBuilder {
     }
 
     if (pattern) {
-      query += ` AND (t.name LIKE '%${ pattern }%' OR t.description LIKE '%${ pattern }%')`;
+      query += ` AND (LOWER(t.name) LIKE LOWER('%${ pattern }%') OR LOWER(t.description) LIKE LOWER('%${ pattern }%'))`;
     }
 
     if (taskStatusId) {

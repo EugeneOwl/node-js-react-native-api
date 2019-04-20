@@ -28,6 +28,31 @@ class TaskController {
     const preCreateData = await taskService.getPreCreateData(request.query[RequestQueryKeys.PROJECT_ID]);
     response.send(preCreateData);
   }
+
+  async getTimelog(request: Request, response: Response): Promise<void> {
+    const timelog = await taskService.getTimelog(request.params.id);
+    response.send(timelog);
+  }
+
+  async addTimelog(request: Request, response: Response): Promise<void> {
+    await taskService.addTimelog(request.body);
+    response.send();
+  }
+
+  async getTimeline(request: Request, response: Response): Promise<void> {
+    const timeline = await taskService.getTimeline(request.query[RequestQueryKeys.SEARCH_PATTERN]);
+    response.send(timeline);
+  }
+
+  async setStatus(request: Request, response: Response): Promise<void> {
+    await taskService.setStatus(
+      request.params.id,
+      request.query[RequestQueryKeys.TASK_STATUS_ID],
+      request.query[RequestQueryKeys.USER_ID]
+    );
+    response.send();
+  }
+
 }
 
 const taskController = new TaskController();
