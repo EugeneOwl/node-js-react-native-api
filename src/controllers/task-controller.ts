@@ -16,7 +16,7 @@ class TaskController {
 
   async add(request: Request, response: Response): Promise<void> {
     await taskService.add(request.body);
-    response.send({ status: 200 });
+    response.send(request.body);
   }
 
   async getDetails(request: Request, response: Response): Promise<void> {
@@ -36,7 +36,7 @@ class TaskController {
 
   async addTimelog(request: Request, response: Response): Promise<void> {
     await taskService.addTimelog(request.body);
-    response.send({ status: 200 });
+    response.send(request.body);
   }
 
   async getTimeline(request: Request, response: Response): Promise<void> {
@@ -50,7 +50,7 @@ class TaskController {
       request.query[RequestQueryKeys.TASK_STATUS_ID],
       request.query[RequestQueryKeys.USER_ID]
     );
-    response.send({ status: 200 });
+    response.send({ statusId: request.query[RequestQueryKeys.TASK_STATUS_ID] });
   }
 
 }
