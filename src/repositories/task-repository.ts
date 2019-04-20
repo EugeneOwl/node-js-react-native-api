@@ -228,7 +228,8 @@ FROM
       ON u.id = tsl.user_id
     JOIN task_statuses AS ts
       ON ts.id = tsl.task_status_id
-    WHERE LOWER(t.name) LIKE LOWER('%${ pattern }%');
+    WHERE LOWER(t.name) LIKE LOWER('%${ pattern }%')
+      ORDER BY tsl.date_created, tsl.time_created;
     `;
 
   private readonly UPDATE_STATUS_QUERY = `
