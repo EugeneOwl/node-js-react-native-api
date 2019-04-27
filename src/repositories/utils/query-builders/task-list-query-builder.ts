@@ -4,6 +4,7 @@ class TaskListQueryBuilder {
     let query = this.TASK_LIST_BASE_QUERY(projectId);
 
     if (!pattern && !taskStatusId && !expiredOnly) {
+      query += ' ORDER BY t.name';
       return query;
     }
 
