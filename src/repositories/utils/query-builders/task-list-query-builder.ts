@@ -16,7 +16,7 @@ class TaskListQueryBuilder {
     }
 
     if (expiredOnly) {
-      query += ' AND deadline_date < now()';
+      query += ' AND deadline_date < now() AND t.task_status_id IN (1, 2)';
     }
 
     query += ' ORDER BY t.name';
