@@ -19,6 +19,8 @@ class TaskListQueryBuilder {
       query += ' AND deadline_date < now()';
     }
 
+    query += ' ORDER BY t.name';
+
     return query;
   }
 
