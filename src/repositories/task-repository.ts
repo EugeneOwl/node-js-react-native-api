@@ -177,7 +177,7 @@ SELECT id, name FROM tasks WHERE parent_id = $1;
 
   private readonly AVAILABLE_EXECUTORS_QUERY = `
 SELECT id, username AS name FROM users;
-  `; // TODO filter executors according permissions
+  `;
 
   private readonly AVAILABLE_TASK_PARENTS_QUERY = `
 SELECT id, name FROM tasks WHERE project_id = $1;
